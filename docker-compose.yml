@@ -1,12 +1,10 @@
 version: '3.9'
 
 services:
-  app:
+  api:
     build:
-      dockerfile: ./docker/Dockerfile
+      dockerfile: docker/flask/Dockerfile
       context: ./
-    ports:
-      - "8000:8000"
     restart: unless-stopped
     depends_on:
       - postgres
@@ -14,6 +12,18 @@ services:
       driver: json-file
       options:
         max-size: 1G
+
+  api-proxy:
+    image: ntdesmond/nginx-api-proxy:latest
+    ports:
+      - "80:80"
+    environment:
+      TARGET_HOSTNAME: "api:8000"
+    depends_on:
+      - api
+    restart: unless-stopped
+    logging:
+      driver: none
 
   postgres:
     image: postgres:latest
