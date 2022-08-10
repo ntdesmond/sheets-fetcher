@@ -9,8 +9,7 @@ app.config.from_prefixed_env()
 app.json_encoder = OrderJSONEncoder
 
 
-@app.route("/", methods=['GET'])
+@app.route("/", methods=["GET"])
 def index():
     session = Session()
     return session.query(Order).all()
-

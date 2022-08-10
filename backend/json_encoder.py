@@ -10,9 +10,9 @@ class OrderJSONEncoder(JSONEncoder):
         if isinstance(obj, Order):
             data = model_to_dict(obj)
             data |= {
-                'date': time.mktime(obj.date.timetuple()),
-                'cost_dollars': float(obj.cost_dollars),
-                'cost_rubles': float(obj.cost_rubles),
+                "date": time.mktime(obj.date.timetuple()),
+                "cost_dollars": float(obj.cost_dollars),
+                "cost_rubles": float(obj.cost_rubles),
             }
             return data
         return super().default(obj)
