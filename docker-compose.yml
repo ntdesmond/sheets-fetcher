@@ -7,8 +7,8 @@ services:
       context: ./
     environment:
       - DB_HOST=postgres
-      - UPDATE_PERIOD
       - DB_PASSWORD
+      - UPDATE_PERIOD
       - SHEETS_DOC_ID
       - SHEETS_SERVICE_ACCOUNT_KEY
       - CURRENCY_INFO_URL
@@ -24,6 +24,9 @@ services:
     build:
       dockerfile: docker/flask/Dockerfile
       context: ./
+    environment:
+      - DB_HOST=postgres
+      - DB_PASSWORD
     restart: unless-stopped
     depends_on:
       - postgres
