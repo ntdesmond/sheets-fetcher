@@ -1,4 +1,4 @@
-from fetcher.database import ModelType
+from common.database import ModelType
 
 
 def model_to_dict(model: ModelType):

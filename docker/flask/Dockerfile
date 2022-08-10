@@ -11,8 +11,9 @@ RUN python -m venv .venv && \
 # Create a non-root user
 RUN groupadd app && useradd app -g app
 
-# Copy the flask app and config
+# Copy the flask app, common part and config
 COPY ./backend ./backend
+COPY ./common ./common
 COPY ./config ./config
 
 # Run

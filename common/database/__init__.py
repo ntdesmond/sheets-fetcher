@@ -2,9 +2,8 @@ from typing import TypeVar
 import sqlalchemy
 from sqlalchemy.orm import sessionmaker
 
-from fetcher.settings import settings
-from fetcher.database.models import Base
-from fetcher.database.models.order import Order
+from common.settings import settings
+from common.database.models import Base
 
 ModelType = TypeVar("ModelType", bound=Base)
 

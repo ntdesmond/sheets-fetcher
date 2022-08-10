@@ -12,7 +12,13 @@ api = build(
 )
 
 
-def get_rows(range: str = "B2:D"):
+def get_rows(range: str = "B2:D") -> list[list[str]]:
+    """
+    Fetch data from the spreadsheet\
+
+    :param range: Range to fetch data from
+    :return: List of lists of strings that are stored in the sheet cells
+    """
     return (
         api.spreadsheets()
         .values()

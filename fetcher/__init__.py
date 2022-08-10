@@ -1,10 +1,11 @@
 import asyncio
 import logging
 
-from fetcher import database, sheets
-from fetcher.database.models.order import Order
-from fetcher.database.utils import add_or_update
+from common import database
+from common.database.utils import add_or_update
+from fetcher import sheets
 from fetcher.settings import settings
+from fetcher.utils import row_to_order
 
 
 async def update_db() -> None:
@@ -18,7 +19,7 @@ async def update_db() -> None:
     - rows with the new ID that have not been seen before will be added to the DB.
     """
     logging.info("Fetching the data from Google Sheets...")
-    orders = [Order.from_sheets_row(*row) for row in sheets.get_rows()]
+    orders = [row_to_order(row) for row in sheets.get_rows()]
     logging.info(f"Fetched {len(orders)} rows, updating the DB.")
     add_or_update(orders)
 

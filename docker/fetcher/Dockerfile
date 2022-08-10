@@ -11,12 +11,9 @@ RUN python -m venv .venv && \
 # Create a non-root user
 RUN groupadd app && useradd app -g app
 
-# Copy the script and google credentials
+# Copy the app, common part and google credentials
 COPY ./fetcher ./fetcher
+COPY ./common ./common
 COPY ./.google ./.google
-
-# Run
-USER app
-EXPOSE 8000
 
 ENTRYPOINT ["./.venv/bin/python", "-m", "fetcher"]

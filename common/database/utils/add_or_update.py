@@ -1,7 +1,7 @@
 from sqlalchemy.dialects.postgresql import insert
 
-from fetcher.database import ModelType, Session
-from fetcher.database.utils.model_to_dict import model_to_dict
+from common.database import ModelType, Session
+from common.database.utils.model_to_dict import model_to_dict
 
 
 def add_or_update(items: list[ModelType]):

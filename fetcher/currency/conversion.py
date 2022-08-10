@@ -8,7 +8,7 @@ from fetcher.settings import settings
 
 def convert_usd_to_rub(cost_dollars: Decimal, date: datetime.date) -> Decimal:
     """
-    Converts USD cost to RUB, using an external service to get the conversion rate on a specific date.
+    Convert USD cost to RUB, using an external service to get the conversion rate on a specific date.
     """
     return cost_dollars * get_conversion_rate(date)
 
