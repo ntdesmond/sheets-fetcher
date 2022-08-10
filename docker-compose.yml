@@ -3,7 +3,7 @@ version: '3.9'
 services:
   fetcher:
     build:
-      dockerfile: docker/fetcher/Dockerfile
+      dockerfile: ./docker/fetcher/Dockerfile
       context: ./
     environment:
       - DB_HOST=postgres
@@ -22,7 +22,7 @@ services:
 
   api:
     build:
-      dockerfile: docker/flask/Dockerfile
+      dockerfile: ./docker/backend/Dockerfile
       context: ./
     environment:
       - DB_HOST=postgres
