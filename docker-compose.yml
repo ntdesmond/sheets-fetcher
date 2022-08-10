@@ -1,6 +1,25 @@
 version: '3.9'
 
 services:
+  fetcher:
+    build:
+      dockerfile: docker/fetcher/Dockerfile
+      context: ./
+    environment:
+      - DB_HOST=postgres
+      - UPDATE_PERIOD
+      - DB_PASSWORD
+      - SHEETS_DOC_ID
+      - SHEETS_SERVICE_ACCOUNT_KEY
+      - CURRENCY_INFO_URL
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    logging:
+      driver: json-file
+      options:
+        max-size: 1G
+
   api:
     build:
       dockerfile: docker/flask/Dockerfile
@@ -28,7 +47,7 @@ services:
   postgres:
     image: postgres:latest
     environment:
-      - POSTGRES_PASSWORD
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
     restart: unless-stopped
     logging:
       driver: none
