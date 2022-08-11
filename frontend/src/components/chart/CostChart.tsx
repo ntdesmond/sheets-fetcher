@@ -34,15 +34,15 @@ const ChartWrapper = styled.div`
 const CostChart = (props: { orders: Order[] }) => {
   const data = useMemo<ChartData<'line'>>(() => {
     // Sort orders by date
-    props.orders.sort((a, b) => a.date - b.date);
+    const ordersByDate = Array.from(props.orders).sort((a, b) => a.date - b.date);
 
     // Make the points
     return {
-      labels: props.orders.map(({ date }) => formatDate(date)),
+      labels: ordersByDate.map(({ date }) => formatDate(date)),
       datasets: [
         {
           label: 'Стоимость, $',
-          data: props.orders.map(({ cost_dollars }) => cost_dollars),
+          data: ordersByDate.map(({ cost_dollars }) => cost_dollars),
           borderColor: 'rgb(82, 99, 255)',
           backgroundColor: 'rgba(82, 99, 255, 0.5)',
         },

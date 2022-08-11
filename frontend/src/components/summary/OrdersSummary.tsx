@@ -1,25 +1,17 @@
-import { useEffect, useState } from 'react';
+import { useMemo } from 'react';
 import Order from '../../data/types/order';
 import floorToFixed from '../utils/rounding';
 
 const OrdersSummary = (props: { orders: Order[] }) => {
-  const [totalUsdCost, setTotalUsdCost] = useState('');
-  const [totalRubCost, setTotalRubCost] = useState('');
+  const totalUsdCost = useMemo(() => floorToFixed(
+    props.orders.reduce((sum, order) => sum + order.cost_dollars, 0),
+    2,
+  ), [props.orders]);
 
-  useEffect(() => {
-    setTotalUsdCost(
-      floorToFixed(
-        props.orders.reduce((sum, order) => sum + order.cost_dollars, 0),
-        2,
-      ),
-    );
-    setTotalRubCost(
-      floorToFixed(
-        props.orders.reduce((sum, order) => sum + order.cost_rubles, 0),
-        2,
-      ),
-    );
-  }, []);
+  const totalRubCost = useMemo(() => floorToFixed(
+    props.orders.reduce((sum, order) => sum + order.cost_rubles, 0),
+    2,
+  ), [props.orders]);
 
   return (
     <div>
