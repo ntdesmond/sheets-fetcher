@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import OrdersSummary from './components/summary/OrdersSummary';
 import OrderTable from './components/table/OrderTable';
 import getOrders from './data/api/orders';
 import Order from './data/types/order';
@@ -21,9 +22,16 @@ const App = () => {
     getOrders().then(setOrders);
   }, []);
 
+  if (orders === null || orders === undefined) {
+    return <StyledApp><div>Loading...</div></StyledApp>;
+  }
+
   return (
     <StyledApp>
-      {orders != null && <OrderTable orders={orders} />}
+      <div>
+        <OrderTable orders={orders} />
+        <OrdersSummary orders={orders} />
+      </div>
     </StyledApp>
   );
 };

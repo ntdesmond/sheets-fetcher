@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 import Order from '../../data/types/order';
 import CostCells from './cells/CostCells';
@@ -35,30 +34,28 @@ const StyledTableHead = styled.thead`
 `;
 
 const OrderTable = (props: { orders: Order[] }) => (
-  <div>
-    <ScrollWrapper>
-      <StyledTable>
-        <StyledTableHead>
-          <tr>
-            <OrderTableHeadCell>№</OrderTableHeadCell>
-            <OrderTableHeadCell>Номер заказа</OrderTableHeadCell>
-            <OrderTableHeadCell colSpan={2}>Стоимость</OrderTableHeadCell>
-            <OrderTableHeadCell>Дата поставки</OrderTableHeadCell>
-          </tr>
-        </StyledTableHead>
-        <tbody>
-          {props.orders.map((order, i) => (
-            <StyledRow key={order.id}>
-              <OrderTableCell align="right">{i + 1}</OrderTableCell>
-              <OrderTableCell align="center">{order.id}</OrderTableCell>
-              <CostCells dollar_cost={order.cost_dollars} ruble_cost={order.cost_rubles} />
-              <DateCell timestamp={order.date} />
-            </StyledRow>
-          ))}
-        </tbody>
-      </StyledTable>
-    </ScrollWrapper>
-  </div>
+  <ScrollWrapper>
+    <StyledTable>
+      <StyledTableHead>
+        <tr>
+          <OrderTableHeadCell>№</OrderTableHeadCell>
+          <OrderTableHeadCell>Номер заказа</OrderTableHeadCell>
+          <OrderTableHeadCell colSpan={2}>Стоимость</OrderTableHeadCell>
+          <OrderTableHeadCell>Дата поставки</OrderTableHeadCell>
+        </tr>
+      </StyledTableHead>
+      <tbody>
+        {props.orders.map((order, i) => (
+          <StyledRow key={order.id}>
+            <OrderTableCell align="right">{i + 1}</OrderTableCell>
+            <OrderTableCell align="center">{order.id}</OrderTableCell>
+            <CostCells dollar_cost={order.cost_dollars} ruble_cost={order.cost_rubles} />
+            <DateCell timestamp={order.date} />
+          </StyledRow>
+        ))}
+      </tbody>
+    </StyledTable>
+  </ScrollWrapper>
 );
 
 export default OrderTable;
