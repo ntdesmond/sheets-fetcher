@@ -5,6 +5,7 @@ const OrderTableHeadCell = styled(OrderTableCell)`
   text-align: center;
   font-weight: bold;
   background: #0003;
+  border-bottom: 2px solid #fff;
 `;
 
 export default OrderTableHeadCell;

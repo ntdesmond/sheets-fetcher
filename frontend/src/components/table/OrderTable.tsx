@@ -13,12 +13,21 @@ const ScrollWrapper = styled.div`
   position: relative;
 `;
 
-const TableGrid = styled.div`
-  display: grid;
-  grid-template-columns: min-content repeat(4, 1fr);
+const StyledTable = styled.table`
+  border-spacing: 4px;
+  border-collapse: separate;
 `;
 
-const StyledTableHead = styled(TableGrid)`
+const StyledRow = styled.tr`
+  :nth-child(2n) > td {
+    background: #0002;
+  }
+  :nth-child(2n+1) > td {
+    background: #0001;
+  }
+`;
+
+const StyledTableHead = styled.thead`
   position: sticky;
   top: 0;
   background: #fff;
@@ -28,22 +37,26 @@ const StyledTableHead = styled(TableGrid)`
 const OrderTable = (props: { orders: Order[] }) => (
   <div>
     <ScrollWrapper>
-      <StyledTableHead>
-        <OrderTableHeadCell>№</OrderTableHeadCell>
-        <OrderTableHeadCell>Номер заказа</OrderTableHeadCell>
-        <OrderTableHeadCell colSpan={2}>Стоимость</OrderTableHeadCell>
-        <OrderTableHeadCell>Дата поставки</OrderTableHeadCell>
-      </StyledTableHead>
-      <TableGrid>
-        {props.orders.map((order, i) => (
-          <React.Fragment key={order.id}>
-            <OrderTableCell align="end">{i + 1}</OrderTableCell>
-            <OrderTableCell align="center">{order.id}</OrderTableCell>
-            <CostCells dollar_cost={order.cost_dollars} ruble_cost={order.cost_rubles} />
-            <DateCell timestamp={order.date} />
-          </React.Fragment>
-        ))}
-      </TableGrid>
+      <StyledTable>
+        <StyledTableHead>
+          <tr>
+            <OrderTableHeadCell>№</OrderTableHeadCell>
+            <OrderTableHeadCell>Номер заказа</OrderTableHeadCell>
+            <OrderTableHeadCell colSpan={2}>Стоимость</OrderTableHeadCell>
+            <OrderTableHeadCell>Дата поставки</OrderTableHeadCell>
+          </tr>
+        </StyledTableHead>
+        <tbody>
+          {props.orders.map((order, i) => (
+            <StyledRow key={order.id}>
+              <OrderTableCell align="right">{i + 1}</OrderTableCell>
+              <OrderTableCell align="center">{order.id}</OrderTableCell>
+              <CostCells dollar_cost={order.cost_dollars} ruble_cost={order.cost_rubles} />
+              <DateCell timestamp={order.date} />
+            </StyledRow>
+          ))}
+        </tbody>
+      </StyledTable>
     </ScrollWrapper>
   </div>
 );
