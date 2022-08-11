@@ -11,7 +11,7 @@ services:
       - DB_PASSWORD
       - UPDATE_PERIOD
       - SHEETS_DOC_ID
-      - SHEETS_SERVICE_ACCOUNT_KEY
+      - SHEETS_API_KEY
       - CURRENCY_INFO_URL
     restart: unless-stopped
     depends_on:

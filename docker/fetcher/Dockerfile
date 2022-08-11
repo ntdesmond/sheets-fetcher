@@ -14,6 +14,5 @@ RUN groupadd app && useradd app -g app
 # Copy the app, common part and google credentials
 COPY ./fetcher ./fetcher
 COPY ./common ./common
-COPY ./.google ./.google
 
 ENTRYPOINT ["./.venv/bin/python", "-m", "fetcher"]
