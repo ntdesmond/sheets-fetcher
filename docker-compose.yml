@@ -1,6 +1,7 @@
 version: '3.9'
 
 services:
+  # Fetching script
   fetcher:
     build:
       dockerfile: ./docker/fetcher/Dockerfile
@@ -20,6 +21,7 @@ services:
       options:
         max-size: 1G
 
+  # Flask backend app
   api:
     build:
       dockerfile: ./docker/backend/Dockerfile
@@ -35,10 +37,11 @@ services:
       options:
         max-size: 1G
 
+  # Proxy for the backend
   api-proxy:
     image: ntdesmond/nginx-api-proxy:latest
     ports:
-      - "80:80"
+      - "8000:80"
     environment:
       TARGET_HOSTNAME: "api:8000"
     depends_on:
@@ -47,6 +50,22 @@ services:
     logging:
       driver: none
 
+  # Frontend (React)
+  web:
+    build:
+      dockerfile: ./docker/frontend/Dockerfile
+      context: ./
+      args:
+        - BACKEND_ROOT=http://127.0.0.1:8000
+    ports:
+      - "80:80"
+    restart: unless-stopped
+    depends_on:
+      - api
+    logging:
+      driver: none
+
+  # Database (not persistent)
   postgres:
     image: postgres:latest
     environment:
