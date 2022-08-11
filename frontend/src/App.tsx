@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import CostChart from './components/chart/CostChart';
 import OrdersSummary from './components/summary/OrdersSummary';
 import OrderTable from './components/table/OrderTable';
 import getOrders from './data/api/orders';
@@ -11,9 +12,16 @@ const StyledApp = styled.main`
 
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: stretch;
   justify-content: space-around;
   gap: 2em;
+`;
+
+const OrdersSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  margin: 2em 0em;
 `;
 
 const App = () => {
@@ -28,10 +36,11 @@ const App = () => {
 
   return (
     <StyledApp>
-      <div>
+      <OrdersSection>
         <OrderTable orders={orders} />
         <OrdersSummary orders={orders} />
-      </div>
+      </OrdersSection>
+      <CostChart orders={orders} />
     </StyledApp>
   );
 };

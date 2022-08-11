@@ -1,13 +1,12 @@
 import styled from 'styled-components';
 import Order from '../../data/types/order';
-import CostCells from './cells/CostCells';
-import DateCell from './cells/DateCell';
+import formatDate from '../utils/date';
+import floorToFixed from '../utils/rounding';
 import OrderTableCell from './cells/OrderTableCell';
 import OrderTableHeadCell from './cells/OrderTableHeadCell';
 
 const ScrollWrapper = styled.div`
   width: 100%;
-  max-height: 50vh;
   overflow-y: scroll;
   position: relative;
 `;
@@ -49,8 +48,9 @@ const OrderTable = (props: { orders: Order[] }) => (
           <StyledRow key={order.id}>
             <OrderTableCell align="right">{i + 1}</OrderTableCell>
             <OrderTableCell align="center">{order.id}</OrderTableCell>
-            <CostCells dollar_cost={order.cost_dollars} ruble_cost={order.cost_rubles} />
-            <DateCell timestamp={order.date} />
+            <OrderTableCell align="right">{floorToFixed(order.cost_dollars, 2)} $</OrderTableCell>
+            <OrderTableCell align="right">{floorToFixed(order.cost_rubles, 2)} ₽</OrderTableCell>
+            <OrderTableCell align="center">{formatDate(order.date)}</OrderTableCell>
           </StyledRow>
         ))}
       </tbody>
