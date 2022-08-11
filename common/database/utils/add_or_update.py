@@ -24,3 +24,4 @@ def add_or_update(items: list[ModelType]):
     )
     session.execute(upsert_stmt)
     session.commit()
+    session.close()
