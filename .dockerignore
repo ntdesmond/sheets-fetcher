@@ -1,8 +1,7 @@
 venv/
+.git
 .idea
 .vscode
-__pycache__
-node_modules
-build
-
-.env
+frontend/node_modules
+frontend/build
+.env*
